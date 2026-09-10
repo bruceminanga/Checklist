@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevOps Sprint Hub</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- Top Company Switcher Bar -->
+    <div class="company-toolbar">
+        <div class="company-select-group">
+            <label for="companySelector">Active Roadmap:</label>
+            <select id="companySelector" onchange="switchCompany(this.value)"></select>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+            <!-- Delete Button (Only visible for custom added companies) -->
+            <button class="action-btn danger" id="deleteCompanyBtn" onclick="deleteActiveCompany()"
+                style="display: none;">🗑️ Delete Roadmap</button>
+            <button class="action-btn primary" onclick="openAddModal()">+ Add New Company</button>
+        </div>
+    </div>
+
+    <h1 id="pageTitle">DevOps Checklist</h1>
+    <p class="subtitle" id="pageSubtitle">Structured roadmap & competency tracker</p>
+
+    <!-- Dynamic Sprint Header -->
+    <div class="sprint-banner">
+        <div class="sprint-item">
+            <span class="sprint-label">Sprint Window</span>
+            <span class="sprint-value" id="sprintDatesDisplay">Loading...</span>
+        </div>
+        <div class="sprint-item">
+            <span class="sprint-label">Target Velocity</span>
+            <span class="sprint-value" id="sprintVelocityDisplay">-- tasks / day</span>
+        </div>
+        <div class="sprint-item">
+            <span class="sprint-label">Sprint Status</span>
+            <span class="sprint-value" id="sprintBadge">Calculating...</span>
+        </div>
+    </div>
+
+    <!-- Sprint Settings Drawer -->
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-grid">
+            <label>Start Date <input type="date" id="inputStartDate"></label>
+            <label>Target End Date <input type="date" id="inputEndDate"></label>
+        </div>
+        <div class="btn-row">
+            <button class="action-btn primary" onclick="applyCustomDates()">Save Dates</button>
+            <button class="action-btn" onclick="startPresetSprint(3)">⚡ Start Fresh 3-Day Sprint</button>
+            <button class="action-btn" onclick="startPresetSprint(7)">📅 Start 7-Day Sprint</button>
+            <button class="action-btn danger" onclick="resetCheckboxes()">🔄 Clear Tasks for this Company</button>
+        </div>
+    </div>
+
+    <!-- Progress Card -->
+    <div class="progress-card">
+        <div class="progress-meta">
+            <div>
+                <span class="progress-label-left">Overall Completion</span>
+                <span class="progress-count-sub" id="taskFraction">(0 of 0 completed)</span>
+            </div>
+            <div class="progress-pct-display" id="progressPctLarge">0%</div>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- Action Bar -->
+    <div class="action-bar">
+        <button class="action-btn ai-btn" onclick="copyProgressForAI()">🤖 Copy for AI</button>
+        <button class="action-btn" onclick="copyShareLink()">🔗 Copy Share Link</button>
+        <button class="action-btn" onclick="toggleSettings()">⚙️ Adjust Sprint & Dates</button>
+        <button class="action-btn" onclick="exportData()">📥 Export Backup (JSON)</button>
+        <button class="action-btn" onclick="document.getElementById('importFile').click()">📤 Import Backup</button>
+        <input type="file" id="importFile" style="display: none" accept=".json" onchange="importData(event)">
+    </div>
+
+    <!-- Dynamic Category & Checklist Container -->
+    <div id="checklistContainer"></div>
+
+    <!-- Modal: Add New Company from Chatbot -->
+    <div class="modal-backdrop" id="addModal">
+        <div class="modal-card">
+            <h2>Add New Roadmap</h2>
+            <p class="modal-sub">Generate a custom roadmap from any Job Description or Syllabus using your chatbot.</p>
+
+            <div class="guide-step">
+                <strong>Step 1: Get the prompt</strong>
+                <p>Click below to copy the prompt, then paste it into ChatGPT / Claude along with your Job Description.
+                </p>
+                <button class="action-btn primary" onclick="copyChatbotPrompt()">📋 Copy Prompt for Chatbot</button>
+            </div>
+
+            <div class="guide-step">
+                <strong>Step 2: Paste the Chatbot's JSON</strong>
+                <p>Paste the JSON code your chatbot generated into the box below:</p>
+                <textarea id="importJsonArea"
+                    placeholder='{\n  "company": "Company or Course Name",\n  "role": "Role or Track Title",\n  "categories": [...]\n}'></textarea>
+            </div>
+
+            <div class="modal-actions">
+                <button class="action-btn" onclick="closeAddModal()">Cancel</button>
+                <button class="action-btn primary" onclick="saveCustomCompany()">🚀 Save & Launch Roadmap</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="checklist-data.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
