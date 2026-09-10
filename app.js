@@ -2,6 +2,10 @@ let checkboxes = [];
 let allRoadmaps = {};
 let activeKey = "savannah";
 
+// File handles & snapshot storage for smart backup/overwriting
+const fileHandles = {};
+const lastExportedSnapshots = {};
+
 // DOM Elements
 const companySelector = document.getElementById('companySelector');
 const deleteCompanyBtn = document.getElementById('deleteCompanyBtn');
@@ -129,10 +133,14 @@ function deleteActiveCompany() {
         if (k.startsWith(prefix)) localStorage.removeItem(k);
     });
 
-    // 3. Remove from current memory
+    // 3. Clean up file handles and snapshots for this key
+    delete fileHandles[activeKey];
+    delete lastExportedSnapshots[activeKey];
+
+    // 4. Remove from current memory
     delete allRoadmaps[activeKey];
 
-    // 4. Reset to Savannah Informatics
+    // 5. Reset to Savannah Informatics
     activeKey = "savannah";
     populateDropdown();
     switchCompany("savannah");
@@ -391,7 +399,8 @@ function copyShareLink() {
     });
 }
 
-function exportData() {
+// Smart Export Backup (Direct overwrite + change detection)
+async function exportData() {
     const prefix = getStoragePrefix();
     const data = {
         company_key: activeKey,
@@ -400,11 +409,32 @@ function exportData() {
         tasks: {}
     };
     checkboxes.forEach(box => { data.tasks[box.id] = box.checked; });
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `${activeKey}-devops-sprint.json`;
-    a.click();
+
+    try {
+        const response = await fetch('/api/backup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        // If server.py is not handling this endpoint, jump to fallback
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const res = await response.json();
+        if (res.status === 'no_change') {
+            alert(`ℹ️ No changes detected for ${allRoadmaps[activeKey].company}.\nBackup in ${res.file} is already up to date!`);
+        } else if (res.status === 'saved') {
+            alert(`✅ Successfully updated backup on disk:\n${res.file}`);
+        }
+    } catch (err) {
+        // Fallback: If running without server.py, trigger standard download
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `${activeKey}-devops-sprint.json`;
+        a.click();
+        alert(`📥 Downloaded ${activeKey}-devops-sprint.json (Running offline without server.py)`);
+    }
 }
 
 function importData(event) {
@@ -429,6 +459,8 @@ function importData(event) {
                 localStorage.setItem(prefix + 'start', data.sprint_start);
                 localStorage.setItem(prefix + 'end', data.sprint_end);
             }
+            // Update snapshot so it knows current state is saved
+            lastExportedSnapshots[activeKey] = JSON.stringify(data, null, 2);
             update();
             alert('Backup successfully loaded!');
         } catch (err) {
