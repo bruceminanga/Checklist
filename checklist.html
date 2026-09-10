@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevOps Checklist - Savannah Informatics</title>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --primary: #2563eb;
+            --border: #e2e8f0;
+            --done: #94a3b8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 2rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-bar-container {
+            background: var(--border);
+            border-radius: 999px;
+            height: 12px;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            background: var(--primary);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .category {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .category h2 {
+            font-size: 1.1rem;
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
+        }
+
+        label {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            user-select: none;
+            line-height: 1.4;
+        }
+
+        label:last-child {
+            margin-bottom: 0;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        input[type="checkbox"]:checked+span {
+            text-decoration: line-through;
+            color: var(--done);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>DevOps Checklist: Savannah Informatics</h1>
+    <p class="subtitle" id="stats">Loading progress...</p>
+
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Category 1 -->
+    <div class="category">
+        <h2>1. Software Engineering, Scripting & APIs</h2>
+        <label><input type="checkbox" id="t1"><span><strong>Python / Go / Ruby Proficiency:</strong> Review core
+                programming, data structures, and automation scripting.</span></label>
+        <label><input type="checkbox" id="t2"><span><strong>Shell Scripting:</strong> Master POSIX/Bash automation
+                scripts ("where there is a shell, there is a way").</span></label>
+        <label><input type="checkbox" id="t3"><span><strong>API Architectures:</strong> Review communication patterns
+                across REST, GraphQL, and RPC.</span></label>
+        <label><input type="checkbox" id="t4"><span><strong>Version Control (Git):</strong> Branching strategies,
+                interactive rebase, and GitLab/GitHub code reviews.</span></label>
+    </div>
+
+    <!-- Category 2 -->
+    <div class="category">
+        <h2>2. Database Management Systems (DBMS)</h2>
+        <label><input type="checkbox" id="t5"><span><strong>PostgreSQL Administration:</strong> Setup, connection
+                pooling (PgBouncer), indexes, and query performance.</span></label>
+        <label><input type="checkbox" id="t6"><span><strong>Database Operations:</strong> Automated backups,
+                point-in-time recovery (PITR), migrations, and replication.</span></label>
+    </div>
+
+    <!-- Category 3 -->
+    <div class="category">
+        <h2>3. Cloud Platforms, Serverless & Infrastructure as Code (IaC)</h2>
+        <label><input type="checkbox" id="t7"><span><strong>Cloud Platforms (GCP & AWS):</strong> Practice core compute,
+                managed K8s (GKE/EKS), and storage (S3/GCS).</span></label>
+        <label><input type="checkbox" id="t8"><span><strong>Serverless & Messaging:</strong> Cloud Run / Lambda / Cloud
+                Functions, and message queues (Pub/Sub, SQS).</span></label>
+        <label><input type="checkbox" id="t9"><span><strong>Infrastructure as Code (Terraform):</strong> Modular
+                provisioning, state locking, and multi-environment workspaces.</span></label>
+        <label><input type="checkbox" id="t10"><span><strong>Ansible Playbooks (Primary Automation Tool):</strong>
+                Write, modify, and run production playbooks for server configuration and orchestration.</span></label>
+    </div>
+
+    <!-- Category 4 -->
+    <div class="category">
+        <h2>4. Containerization & Orchestration</h2>
+        <label><input type="checkbox" id="t11"><span><strong>Docker & Runtimes:</strong> Multi-stage builds, lean image
+                optimization, and Containerd/LXD concepts.</span></label>
+        <label><input type="checkbox" id="t12"><span><strong>Kubernetes Architecture:</strong> Deployments,
+                StatefulSets, Services, Ingress, RBAC, and ConfigMaps/Secrets.</span></label>
+        <label><input type="checkbox" id="t13"><span><strong>Helm v3 & Kustomize:</strong> Package applications using
+                Helm charts and overlay manifests with Kustomize.</span></label>
+    </div>
+
+    <!-- Category 5 -->
+    <div class="category">
+        <h2>5. CI/CD & Developer Experience (DevEx)</h2>
+        <label><input type="checkbox" id="t14"><span><strong>CI/CD Pipelines:</strong> Build automated test & delivery
+                pipelines using GitLab CI/CD and GitHub Actions.</span></label>
+        <label><input type="checkbox" id="t15"><span><strong>Code Quality & SAST:</strong> Automated linting, static
+                analysis, and image vulnerability scanning (Trivy/Snyk).</span></label>
+        <label><input type="checkbox" id="t16"><span><strong>Deployment Strategies:</strong> Zero-downtime Rolling,
+                Blue-Green, and Canary releases.</span></label>
+        <label><input type="checkbox" id="t17"><span><strong>Developer Experience (DevEx):</strong> Standardize
+                dev/staging/prod environments and assist developers in debugging issues in the SDLC.</span></label>
+    </div>
+
+    <!-- Category 6 -->
+    <div class="category">
+        <h2>6. SRE, Observability & Incident Response</h2>
+        <label><input type="checkbox" id="t18"><span><strong>SLIs, SLOs & Error Budgets:</strong> Define, measure, and
+                track user-facing service level metrics.</span></label>
+        <label><input type="checkbox" id="t19"><span><strong>Metrics & Alerting:</strong> Configure Prometheus, Grafana,
+                and Alertmanager thresholds to prevent downtime.</span></label>
+        <label><input type="checkbox" id="t20"><span><strong>Logging & Distributed Tracing:</strong> Centralized logs
+                (Loki/ELK) and application tracing (OpenTelemetry).</span></label>
+        <label><input type="checkbox" id="t21"><span><strong>Incident Management & RCA:</strong> Conduct blameless
+                Post-Incident Reviews (PIR) and Root Cause Analysis (RCA).</span></label>
+    </div>
+
+    <!-- Category 7 -->
+    <div class="category">
+        <h2>7. Tech Financial Operations (FinOps)</h2>
+        <label><input type="checkbox" id="t22"><span><strong>Cost Tracking & Budgeting:</strong> Set up cloud budgets,
+                cost alerts, and multi-cloud spend controls.</span></label>
+        <label><input type="checkbox" id="t23"><span><strong>Cost Allocation Models:</strong> Tagging strategies to
+                attribute infrastructure expenses accurately to teams/products.</span></label>
+        <label><input type="checkbox" id="t24"><span><strong>FinOps Reporting:</strong> Prepare periodic efficiency
+                recommendations for management and finance teams.</span></label>
+    </div>
+
+    <!-- Category 8 -->
+    <div class="category">
+        <h2>8. Networking, Security & Compliance</h2>
+        <label><input type="checkbox" id="t25"><span><strong>Networking Fundamentals:</strong> OSI model, TCP/IP, UDP,
+                ICMP, DHCP, DNS, HTTP/S, and SMTP.</span></label>
+        <label><input type="checkbox" id="t26"><span><strong>Cloud Security & Networking:</strong> Setup VPCs, subnets,
+                NAT, routing, least-privilege IAM, TLS, and Vault.</span></label>
+        <label><input type="checkbox" id="t27"><span><strong>Healthcare Data Compliance:</strong> Review health data
+                protection standards, data-at-rest/in-transit encryption, and audit trails.</span></label>
+    </div>
+
+    <!-- Category 9 -->
+    <div class="category">
+        <h2>9. Mentorship, Portfolio & Interview Readiness</h2>
+        <label><input type="checkbox" id="t28"><span><strong>Mentorship & Leadership:</strong> Prepare examples of
+                mentoring junior engineers and aligning DevOps practices with business goals.</span></label>
+        <label><input type="checkbox" id="t29"><span><strong>Resume & Portfolio Alignment:</strong> Highlight Ansible,
+                PostgreSQL, K8s, FinOps, and healthcare/enterprise cloud architecture projects.</span></label>
+    </div>
+
+    <script>
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const stats = document.getElementById('stats');
+        const progressBar = document.getElementById('progressBar');
+
+        function update() {
+            let done = 0;
+            checkboxes.forEach(box => {
+                if (box.checked) done++;
+                localStorage.setItem(box.id, box.checked ? '1' : '0');
+            });
+            const pct = Math.round((done / checkboxes.length) * 100);
+            stats.textContent = `${done} of ${checkboxes.length} tasks completed (${pct}%)`;
+            progressBar.style.width = pct + '%';
+        }
+
+        checkboxes.forEach(box => {
+            if (localStorage.getItem(box.id) === '1') {
+                box.checked = true;
+            }
+            box.addEventListener('change', update);
+        });
+
+        update();
+    </script>
+</body>
+
+</html>
