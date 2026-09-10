@@ -1,1 +1,1 @@
-Just working on the sills needed for Savannah Informatics. 
+DevOps checklist web applications
