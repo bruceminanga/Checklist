@@ -29,8 +29,8 @@ ENV/
 
 # 4. Local User Exports & Backup Dumps
 # (Prevents your personal checkmark export JSONs from cluttering the repo)
-*-sprint.json
-*-devops-sprint.json
+# *-sprint.json
+# *-devops-sprint.json
 *.bak
 
 # 5. Environment Secrets & Temporary Logs
