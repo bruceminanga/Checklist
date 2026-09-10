@@ -1,0 +1,39 @@
+# ==========================================
+# DevOps Sprint Hub - Git Ignore
+# ==========================================
+
+# 1. Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 2. Editor & IDE Workspace Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 3. Python Artifacts (from running http.server or automation scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+*.venv/
+env/
+venv/
+ENV/
+
+# 4. Local User Exports & Backup Dumps
+# (Prevents your personal checkmark export JSONs from cluttering the repo)
+*-sprint.json
+*-devops-sprint.json
+*.bak
+
+# 5. Environment Secrets & Temporary Logs
+.env
+.env.local
+*.log
