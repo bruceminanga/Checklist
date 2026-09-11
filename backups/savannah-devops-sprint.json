@@ -4,7 +4,7 @@
   "sprint_end": "2026-09-13",
   "tasks": {
     "t1": false,
-    "t2": true,
+    "t2": false,
     "t3": false,
     "t4": false,
     "t5": false,
